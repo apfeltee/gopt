@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
         }
         else if((re.isoption == true) && (stopparsing == false))
         {
-            if(re.isknown)
+            if(re.isknown && (re.iserror == false))
             {
                 switch(re.name)
                 {
@@ -90,7 +90,14 @@ int main(int argc, char* argv[])
             }
             else
             {
-                printf("*error* unknown option '%s'\n", re.value);
+                if(re.needed_value)
+                {
+                    printf("**error* option '-%c' expects a value\n", re.name);
+                }
+                else
+                {
+                    printf("*error* unknown option '%s'\n", re.value);
+                }
             }
         }
     }
