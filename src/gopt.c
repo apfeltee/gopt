@@ -1,4 +1,9 @@
 
+/*
+* this file is part of 'gopt'. it is released into the public domain.
+* please see the header of 'gopt.h' for more information.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -65,7 +70,7 @@ bool gopt_findopt(struct gopt_t* ci, struct gopt_result_t* re, const char* carg)
     return false;
 }
 
-bool gopt_next(struct gopt_t* ci, struct gopt_result_t* re)
+bool gopt_next(struct gopt_t* ci, struct gopt_result_t* re, bool stopparsing)
 {
     const char* carg;
 
@@ -79,6 +84,16 @@ bool gopt_next(struct gopt_t* ci, struct gopt_result_t* re)
     for(; (ci->count) < (ci->argc); ci->count++)
     {
         carg = ci->argv[ci->count];
+        if(stopparsing)
+        {
+            re->iserror = false;
+            re->isoption = false;
+            re->isknown = false;
+            re->name = -1;
+            re->value = carg;
+            ci->count++;
+            return true;
+        }
         /*
         * check if $carg could be an option, but discard single and double dashes
         */
