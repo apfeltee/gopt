@@ -122,7 +122,7 @@ void gopt_init(
     struct gopt_t* ci,
 
     /* NULL-terminated list of option patterns */
-    const char* options[0],
+    const char** options,
 
     /* where argc begins. typically, this should be 1. */
     int argcbegin,

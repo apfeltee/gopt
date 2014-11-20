@@ -9,7 +9,7 @@
 #include <string.h>
 #include "gopt.h"
 
-void gopt_init(struct gopt_t* ci, const char* options[], int argcbegin, int argc, char** argv)
+void gopt_init(struct gopt_t* ci, const char** options, int argcbegin, int argc, char** argv)
 {
     ci->options = options;
     ci->abegin = argcbegin;
