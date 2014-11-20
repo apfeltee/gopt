@@ -50,6 +50,7 @@ bool gopt_findopt(struct gopt_t* ci, struct gopt_result_t* re, const char* carg)
                     {
                         /* no args left */
                         re->iserror = true;
+                        re->needed_value = true;
                     }
                     else
                     {

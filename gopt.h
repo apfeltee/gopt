@@ -101,6 +101,12 @@ struct gopt_result_t
     bool isknown;
 
     /*
+    * set to true when an option expected a value, but none was passed.
+    * implies $iserror.
+    */
+    bool needed_value;
+
+    /*
     * the short name of the option. set to -1 if $isoption == false.
     * also -1 if $stopparse in gopt_next is true.
     */
@@ -144,9 +150,9 @@ bool gopt_next(
     /*
     * whether to stop parsing or not.
     * if your program never expects variadic values (sort-of like strace, valgrind, gdb, etc...),
-    * then just pass 'true' here. otherwise, define a boolean variable that tracks
+    * then just pass 'false' here. otherwise, define a boolean variable that tracks
     * whether a returned gopt_result_t is an option; if it is not an option, set that
-    * boolean variable to false.
+    * boolean variable to true.
     *
     * for an example of the voodoo above, see 'stracelike.c' in the examples directory.
     */

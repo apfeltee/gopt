@@ -29,11 +29,11 @@ int main(int argc, char* argv[])
     dbg_enabled = false;
 
     gopt_init(&ci, exprs, 1, argc, argv);
-    while(gopt_next(&ci, &re) == true)
+    while(gopt_next(&ci, &re, false) == true)
     {
         if(re.isoption)
         {
-            if(re.isknown)
+            if(re.isknown && (re.iserror == false))
             {
                 switch(re.name)
                 {
@@ -60,7 +60,14 @@ int main(int argc, char* argv[])
             }
             else
             {
-                printf("*error* unknown option '%s'\n", re.value);
+                if(re.needed_value)
+                {
+                    printf("**error* option '-%c' expects a value\n", re.name);
+                }
+                else
+                {
+                    printf("*error* unknown option '%s'\n", re.value);
+                }
             }
         }
         else
